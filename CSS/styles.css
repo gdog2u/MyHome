@@ -5,52 +5,11 @@ body{
 	font-size: 12px;
 }
 
-#wrapper{
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-flow: row wrap;
-	background-color: #060;
-	color: #fff;
+.no-margin{
+	margin: 0 !important;
 }
-
-#wrapper #zone1{
-	height: 90%;
-	flex: 1 1 66%;
-	/* background-color: red; */
-}
-
-#wrapper #zone2{
-	height: 90%;
-	flex: 1 1 34%;
-	border-left: 2px solid #fff;
-	box-sizing: border-box;
-	/* background-color: green; */
-}
-
-#wrapper #zone2 #weather{
-	width: 90%;
-	margin: 1em auto;
-	font-family: sans-serif;
-}
-
-#weather #currentTemp{
-	font-size: 3rem;
-}
-
-#weather #currentIcon{
-	display: block;
-	font-size: 3rem;
-	margin: 0.5em auto;
-	width: 125px;
-	height: 125px;
-	background-color: white;
-}
-
-#wrapper #zone3{
-	flex: 1 1 100%;
-	height: 10%;
-	background-color: #000;
+.no-padding{
+	padding: 0 !important;
 }
 
 .clearfix:after {
@@ -61,23 +20,70 @@ body{
     visibility: hidden;
     line-height: 0;
 }
-
 .clearfix {
     display: inline-block;
+}
+
+#wrapper{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-flow: row wrap;
+	background-color: #060;
+	color: #fff;
+}
+#wrapper #zone1{
+	height: 90%;
+	flex: 1 1 66%;
+	/* background-color: red; */
+}
+#wrapper #zone2{
+	height: 90%;
+	flex: 1 1 34%;
+	border-left: 2px solid #fff;
+	box-sizing: border-box;
+	/* background-color: green; */
+}
+#wrapper #zone2 #weather{
+	width: 90%;
+	margin: 1em auto;
+	font-family: sans-serif;
+}
+#weather .large-text{
+	font-size: 2.25rem;
+}
+#weather .med-text{
+	font-size: 1.5rem;
+}
+#weather #currentIcon{
+	display: block;
+	width: 125px;
+	height: 125px;
+	margin: 0.5em auto;
+	background-color: white;
+	border-radius: 10px;
+	font-size: 3rem;
+}
+#weather #currentTemp::after,
+#weather #currentHigh::after,
+#weather #currentLow::after{
+	content: "°";
+}
+#wrapper #zone3{
+	flex: 1 1 100%;
+	height: 10%;
+	background-color: #000;
 }
 
 .text-left{
 	text-align: left;
 }
-
 .text-center{
 	text-align: center;
 }
-
 .text-right{
 	text-align: right;
 }
-
-
-
-
+.text-tiny{
+	font-size: 0.75 rem;
+}

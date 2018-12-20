@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8" />
 		<link href="CSS\normalize.css" type="text/css" rel="stylesheet" />
 		<link href="CSS\styles.css" type="text/css" rel="stylesheet" />
 		<script src="JS\main.js"></script>
+		<script src="JS\jquery.min.js"></script>
 	</head>
 	<body>
 		<div id="wrapper" class="clearfix">
@@ -11,12 +13,28 @@
 			</div>
 			<div id="zone2">
 				<div id="weather" class="text-center">
-					<span id="currentIcon">&nbsp;</span>
-					<span id="currentTemp">35&deg;</span>
+					<p class="no-margin no-padding text-right">
+						<span class="text-tiny">Updated: 11:23 pm</span>
+					</p>
+					<img src="images/clear-day.png" id="currentIcon" />
+					<div class="large-text">
+						Current Temp: <span id="currentTemp">__</span>
+					</div>
+					<div class="med-text">
+						Low/High: <span id="currentLow">__</span> / <span id="currentHigh">__</span>
+					</div>
+					<div class="med-text">
+						Precipitation: <span id="currentPrecip">10%</span>
+					</div>
 				</div>
 			</div>
 			<div id="zone3">a
 			</div>
 		</div>
+		<script>
+			$(document).ready(function(){
+				getCurrentWeather();
+			});
+		</script>
 	</body>
 </html>
