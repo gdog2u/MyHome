@@ -4,8 +4,8 @@
 		<meta charset="utf-8" />
 		<link href="CSS\normalize.css" type="text/css" rel="stylesheet" />
 		<link href="CSS\styles.css" type="text/css" rel="stylesheet" />
-		<script src="JS\main.js"></script>
 		<script src="JS\jquery.min.js"></script>
+		<script src="JS\main.js"></script>
 	</head>
 	<body>
 		<div id="wrapper" class="clearfix">
@@ -14,27 +14,58 @@
 			<div id="zone2">
 				<div id="weather" class="text-center">
 					<p class="no-margin no-padding text-right">
-						<span class="text-tiny">Updated: 11:23 pm</span>
+						<span class="text-tiny" id="updatedWhen">Updated: __:__ pm</span>
+						<a class="text-tiny" href="Javascript: refreshWeatherDisplay()">&#8635;</a>
 					</p>
-					<img src="images/clear-day.png" id="currentIcon" />
 					<div class="large-text">
-						Current Temp: <span id="currentTemp">__</span>
+						<span id="weatherCity">____________</span>
+					</div>
+					<img src="images/clear-day.png" id="currentIcon" class="weather-icon" />
+					<div class="large-text">
+						Current Temp: <span id="currentTemp" class="temp-display">__</span>
 					</div>
 					<div class="med-text">
-						Low/High: <span id="currentLow">__</span> / <span id="currentHigh">__</span>
+						Low/High: <span id="currentLow" class="temp-display">__</span> / <span id="currentHigh" class="temp-display">__</span>
 					</div>
-					<div class="med-text">
+					<!-- <div class="med-text">
 						Precipitation: <span id="currentPrecip">10%</span>
+					</div> -->
+					<div id="forecastContainer">
+						<div id="forecast1" class="forecast-box">
+							<div class="med-text">
+								<span class="forecast-date">__/__</span>
+							</div>
+							<img src="images/clear-day.png" class="forecast-icon weather-icon">
+							<div class="small-text">
+								Low/High<br />
+								<span class="forecast-low temp-display">__</span> / <span class="forecast-high temp-display">__</span>
+							</div>
+						</div>
+						<div id="forecast2" class="forecast-box">
+							<div class="med-text">
+								<span class="forecast-date">__/__</span>
+							</div>
+							<img src="images/clear-day.png" class="forecast-icon weather-icon">
+							<div class="small-text">
+								Low/High<br />
+								<span class="forecast-low temp-display">__</span> / <span class="forecast-high temp-display">__</span>
+							</div>
+						</div>
+						<div id="forecast3" class="forecast-box">
+							<div class="med-text">
+								<span class="forecast-date">__/__</span>
+							</div>
+							<img src="images/clear-day.png" class="forecast-icon weather-icon" />
+							<div class="small-text">
+								Low/High<br />
+								<span class="forecast-low temp-display">__</span> / <span class="forecast-high temp-display">__</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div id="zone3">a
 			</div>
 		</div>
-		<script>
-			$(document).ready(function(){
-				getCurrentWeather();
-			});
-		</script>
 	</body>
 </html>

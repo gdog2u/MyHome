@@ -4,6 +4,10 @@ body{
 	height: 480px;
 	font-size: 12px;
 }
+a{
+	color: inherit;
+	text-decoration: none;
+}
 
 .no-margin{
 	margin: 0 !important;
@@ -29,7 +33,7 @@ body{
 	height: 100%;
 	display: flex;
 	flex-flow: row wrap;
-	background-color: #060;
+	background-color: #465d42;
 	color: #fff;
 }
 #wrapper #zone1{
@@ -55,19 +59,40 @@ body{
 #weather .med-text{
 	font-size: 1.5rem;
 }
-#weather #currentIcon{
+#weather .small-text{
+	font-size: 1.25rem;
+}
+#weather .weather-icon{
 	display: block;
+	background-color: white;
+	border-radius: 10px;
+}
+#weather #currentIcon{
 	width: 125px;
 	height: 125px;
 	margin: 0.5em auto;
-	background-color: white;
-	border-radius: 10px;
 	font-size: 3rem;
 }
-#weather #currentTemp::after,
-#weather #currentHigh::after,
-#weather #currentLow::after{
+#weather .temp-display::after{
 	content: "°";
+}
+#weather #forecastContainer{
+	display: flex;
+	margin: 1.7rem auto;
+	flex-flow: row;
+	justify-content: space-between;
+}
+#forecastContainer .forecast-box{
+	display: inline-block;
+	height: 10rem;
+	flex: 0 1 30%;
+	border: 2px solid #fff;
+	border-radius: 10px;
+}
+#forecastContainer .forecast-box .forecast-icon{
+	width: 50px;
+	height: 50px;
+	margin: .25em auto;
 }
 #wrapper #zone3{
 	flex: 1 1 100%;
