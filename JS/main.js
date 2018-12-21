@@ -1,6 +1,9 @@
 var round = Math.round;
+var minute = 60*1000;
 var settings = {};
+var testStocks = {"symbols_requested":3,"symbols_returned":3,"data":[{"symbol":"AMD","name":"Advanced Micro Devices, Inc.","currency":"USD","price":"17.36","price_open":"18.12","day_high":"18.34","day_low":"17.17","52_week_high":"34.14","52_week_low":"9.04","day_change":"-0.58","change_pct":"-3.21","close_yesterday":"17.94","market_cap":"17299734636","volume":"55283258","shares":"999407000","stock_exchange_long":"NASDAQ Stock Exchange","stock_exchange_short":"NASDAQ","timezone":"EST","timezone_name":"America/New_York","gmt_offset":"-18000","last_trade_time":"2018-12-21 12:38:47"},{"symbol":"EGO","name":"Eldorado Gold Corp","currency":"USD","price":"0.59","price_open":"0.61","day_high":"0.63","day_low":"0.59","52_week_high":"1.47","52_week_low":"0.55","day_change":"-0.02","change_pct":"-2.88","close_yesterday":"0.61","market_cap":"471642519","volume":"1506643","shares":"794011000","stock_exchange_long":"New York Stock Exchange","stock_exchange_short":"NYSE","timezone":"EST","timezone_name":"America/New_York","gmt_offset":"-18000","last_trade_time":"2018-12-21 12:29:45"},{"symbol":"MILN","name":"GLB X FUNDS/MILLENNIALS THEMATIC ET","currency":"USD","price":"19.20","price_open":"19.68","day_high":"19.68","day_low":"19.20","52_week_high":"23.96","52_week_low":"18.84","day_change":"-0.27","change_pct":"1.40","close_yesterday":"19.47","market_cap":"NA","volume":"7031","shares":"1500000","stock_exchange_long":"NASDAQ Stock Exchange","stock_exchange_short":"NASDAQ","timezone":"EST","timezone_name":"America/New_York","gmt_offset":"-18000","last_trade_time":"2018-12-21 12:06:53"}]}
 var weatherTimer = null;
+var stockTimer = null;
 
 $(document).ready(function(){
 	$.ajax({
@@ -17,11 +20,16 @@ $(document).ready(function(){
 function main(){
 	getCurrentWeather();
 	getForecastWeather();
+	getStockData();
 
 	weatherTimer = setInterval(function(){
 		getCurrentWeather();
 		getForecastWeather();
-	}, (60*1000)*settings.weather.refreshRate);
+	}, minute*settings.weather.refreshRate);
+
+	stockTimer = setInterval(function(){
+		getStockData();
+	}, minute*settings.stocks.refreshRate);
 }
 
 function getCurrentWeather(){
@@ -171,5 +179,53 @@ function refreshWeatherDisplay(){
 	weatherTimer = setInterval(function(){
 		getCurrentWeather();
 		getForecastWeather();
-	}, (60*1000)*settings.weather.refreshRate);
+	}, minute*settings.weather.refreshRate);
+}
+
+function getStockData(){
+	$('#stocks').empty();
+	for(let i = 0; i < 4; i++){
+		// Can only get 5 symbols at a time
+		let offset = i*5;
+		let end = (5*(i+1))-1;
+		let symbols = settings.stocks.watching.slice(offset, end).join(',');
+
+		$.ajax({
+			url: "https://www.worldtradingdata.com/api/v1/stock",
+			method: "get",
+			data: {
+				symbol: symbols,
+				api_token: settings.stocks.api
+			},
+			success: function(data){
+				updateStockDisplay(data.data);
+			}
+		});
+	}
+}
+
+function updateStockDisplay(stockData){
+	for(let i = 0; i < stockData.length; i++){
+		let symbol = stockData[i].symbol;
+		let price = Number(stockData[i].price).toFixed(2);
+		let change = Number(stockData[i].change_pct).toFixed(2);
+		let changeClass = "up";
+
+		if(change != Math.abs(change)){
+			change = "v"+Math.abs(change);
+			changeClass = "down";
+		}else{
+			change = "^"+change;
+		}
+
+		let changeSpan = $('<span></span>');
+			$(changeSpan).text(" ("+change+"%)");
+			$(changeSpan).addClass(changeClass);
+		let stockSpan = $('<span></span>');
+			$(stockSpan).text(symbol+": $"+price);
+			$(stockSpan).addClass('single-stock');
+			$(stockSpan).append(changeSpan);
+
+		$('#stocks').append(stockSpan);
+	}
 }

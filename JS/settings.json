@@ -1,1 +1,1 @@
-{"weather": {"refreshRate": 15, "city": 4919553, "api": "d7235563258d3bbb6ba494080319486e"}, "stocks": {"api": "aT12THC6tWcnMvBiI6tSSBrCPQpcwKuSn3cDKjQsunJM1AQPNnJRc9af0e7v"}}
+{"weather": {"refreshRate": 15, "city": 4919553, "api": "d7235563258d3bbb6ba494080319486e"}, "stocks": {"watching": ["EGO","AMD","MILN","TSLA","INTC","STX","NVDA","AAPL","FB","NTDOY","SNE","BLOK","PLUG","HTHT","ABX","SPWR","FSLR","SEDG","ACB","DKS"], "refreshRate": 10,"api": "aT12THC6tWcnMvBiI6tSSBrCPQpcwKuSn3cDKjQsunJM1AQPNnJRc9af0e7v"}}
