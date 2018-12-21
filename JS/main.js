@@ -187,7 +187,7 @@ function getStockData(){
 	for(let i = 0; i < 4; i++){
 		// Can only get 5 symbols at a time
 		let offset = i*5;
-		let end = (5*(i+1))-1;
+		let end = (5*(i+1));
 		let symbols = settings.stocks.watching.slice(offset, end).join(',');
 
 		$.ajax({
