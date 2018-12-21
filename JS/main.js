@@ -211,6 +211,13 @@ function updateStockDisplay(stockData){
 		let change = Number(stockData[i].change_pct).toFixed(2);
 		let changeClass = "up";
 
+		let changeSpan = $('<span></span>');
+		let stockSpan = $('<span></span>');
+
+		if(Math.abs(change) > 5){
+			$(stockSpan).addClass('text-underline');
+		}
+
 		if(change != Math.abs(change)){
 			change = "v"+Math.abs(change);
 			changeClass = "down";
@@ -218,13 +225,12 @@ function updateStockDisplay(stockData){
 			change = "^"+change;
 		}
 
-		let changeSpan = $('<span></span>');
-			$(changeSpan).text(" ("+change+"%)");
-			$(changeSpan).addClass(changeClass);
-		let stockSpan = $('<span></span>');
-			$(stockSpan).text(symbol+": $"+price);
-			$(stockSpan).addClass('single-stock');
-			$(stockSpan).append(changeSpan);
+		$(changeSpan).text(" ("+change+"%)");
+		$(changeSpan).addClass(changeClass);
+
+		$(stockSpan).text(symbol+": $"+price);
+		$(stockSpan).addClass('single-stock');
+		$(stockSpan).append(changeSpan);
 
 		$('#stocks').append(stockSpan);
 	}

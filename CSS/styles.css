@@ -115,7 +115,7 @@ a{
 	font-family: "LED-Counter", monospace;
 	/*Animation stuff*/
 	transform: translateX(100%);
-	animation: stockslide 45s linear infinite;
+	animation: stockslide 90s linear infinite;
 }
 #stocks .single-stock{
 	font-size: 2rem;
@@ -149,4 +149,7 @@ a{
 }
 .text-tiny{
 	font-size: 0.75 rem;
+}
+.text-underline{
+	text-decoration: underline;
 }
