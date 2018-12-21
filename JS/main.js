@@ -83,7 +83,7 @@ function updateForecastDisplay(forecastData){
 		let forecastDate = new Date(desiredForecast[i].dt*1000);
 		$('#forecast'+(i+1)+' .forecast-date').text((forecastDate.getMonth()+1)+"/"+forecastDate.getDate());
 		// Update forecast low/high
-		let forecastLowHigh = getForecastLowHigh(forecastData.list.slice(i, ((8*(i+1))-1)));
+		let forecastLowHigh = getForecastLowHigh(forecastData.list.slice(i*8, ((8*(i+1))-1)));
 		$('#forecast'+(i+1)+' .forecast-low').text(forecastLowHigh[0]);
 		$('#forecast'+(i+1)+' .forecast-high').text(forecastLowHigh[1]);
 		// Update forecast icon 
