@@ -1,7 +1,13 @@
+@font-face {
+	font-family: "LED-Counter";
+	src: url("../fonts/led_counter-7.ttf");
+}
+
 html,
 body{
 	width: 800px;
 	height: 480px;
+	overflow: hidden;
 	font-size: 12px;
 }
 a{
@@ -36,17 +42,17 @@ a{
 	background-color: #465d42;
 	color: #fff;
 }
+/* Zone 1 - Tasks */
 #wrapper #zone1{
 	height: 90%;
 	flex: 1 1 66%;
-	/* background-color: red; */
 }
+/* Zone 2 - Weather */
 #wrapper #zone2{
 	height: 90%;
 	flex: 1 1 34%;
 	border-left: 2px solid #fff;
 	box-sizing: border-box;
-	/* background-color: green; */
 }
 #wrapper #zone2 #weather{
 	width: 90%;
@@ -94,10 +100,42 @@ a{
 	height: 50px;
 	margin: .25em auto;
 }
+/* Zone 3 - Stocks */
 #wrapper #zone3{
 	flex: 1 1 100%;
 	height: 10%;
+	overflow: hidden;
 	background-color: #000;
+}
+#wrapper #zone3 #stocks{
+	width: fit-content;
+	height: 48px;
+	white-space: nowrap;
+	line-height: 48px;
+	font-family: "LED-Counter", monospace;
+	/*Animation stuff*/
+	transform: translateX(100%);
+	animation: stockslide 45s linear infinite;
+}
+#stocks .single-stock{
+	font-size: 2rem;
+	margin-right: 1rem;
+}
+#stocks .single-stock .down{
+	color: #f55;
+}
+#stocks .single-stock .up{
+	color: #5f5;
+}
+
+/*Animation stylings*/
+@keyframes stockslide{
+	0% {
+		transform: translateX(810px);
+	}
+	100% {
+		transform: translateX(-100%);
+	}
 }
 
 .text-left{
