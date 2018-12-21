@@ -1,28 +1,36 @@
-let round = Math.round;
-// city id for Dayton, OH via https://OpenWeatherMap.org
+var round = Math.round;
+var settings = {};
 var weatherTimer = null;
-var weatherRefreshRate = (60*1000)*15; // 15 minutes
-var weatherCityID = 4919553;
-var weatherAPI = "d7235563258d3bbb6ba494080319486e";
-var stockAPI = "aT12THC6tWcnMvBiI6tSSBrCPQpcwKuSn3cDKjQsunJM1AQPNnJRc9af0e7v";
 
 $(document).ready(function(){
+	$.ajax({
+		url: "js/settings.json",
+		method: "get",
+		contentType: "application/json",
+		success: function(data){
+			settings = data;
+			main();
+		}
+	})
+});
+
+function main(){
 	getCurrentWeather();
 	getForecastWeather();
-	
+
 	weatherTimer = setInterval(function(){
 		getCurrentWeather();
 		getForecastWeather();
-	}, weatherRefreshRate);
-});
+	}, (60*1000)*settings.weather.refreshRate);
+}
 
 function getCurrentWeather(){
     $.ajax({
         url: "https://api.openweathermap.org/data/2.5/weather",
         method: "get",
         data: {
-            id: weatherCityID,
-            APPID: weatherAPI,
+            id: settings.weather.city,
+            APPID: settings.weather.api,
             units: "imperial"
         },
         success: function(data){
@@ -40,8 +48,8 @@ function getForecastWeather(){
         url: "https://api.openweathermap.org/data/2.5/forecast",
         method: "get",
         data: {
-            id: weatherCityID,
-            APPID: weatherAPI,
+            id: settings.weather.city,
+            APPID: settings.weather.api,
             units: "imperial"
         },
         success: function(data){
@@ -55,7 +63,7 @@ function getForecastWeather(){
 }
 
 function updateCurrentDisplay(weatherData){
-	
+
 	// Update updated time
 	let now = new Date();
 	$('#updatedWhen').text("Updated: "+now.toLocaleTimeString());
@@ -77,7 +85,7 @@ function updateCurrentDisplay(weatherData){
 
 function updateForecastDisplay(forecastData){
 	var desiredForecast = [forecastData.list[4], forecastData.list[12], forecastData.list[20]];
-	
+
 	for(let i = 0; i < 3; i++){
 		// Update forecast date display
 		let forecastDate = new Date(desiredForecast[i].dt*1000);
@@ -86,7 +94,7 @@ function updateForecastDisplay(forecastData){
 		let forecastLowHigh = getForecastLowHigh(forecastData.list.slice(i*8, ((8*(i+1))-1)));
 		$('#forecast'+(i+1)+' .forecast-low').text(forecastLowHigh[0]);
 		$('#forecast'+(i+1)+' .forecast-high').text(forecastLowHigh[1]);
-		// Update forecast icon 
+		// Update forecast icon
 		let image = getWeatherImage(desiredForecast[i].weather[0].id);
 		$('#forecast'+(i+1)+' .forecast-icon').attr("src", "images/"+image+".png");
 	}
@@ -102,10 +110,10 @@ function getForecastLowHigh(weatherData){
 			lowHigh[1] = weatherData[i].main.temp_max;
 		}
 	}
-	
+
 	lowHigh[0] = round(lowHigh[0]);
 	lowHigh[1] = round(lowHigh[1]);
-	
+
 	return lowHigh;
 }
 
@@ -140,7 +148,7 @@ function getWeatherImage(weatherID, sunrise = null, sunset = null){
 	else{
 		image = "clear-"+weatherTime;
 	}
-	
+
 	return image;
 }
 
@@ -158,10 +166,10 @@ function getWeatherTime(sunrise, sunset){
 function refreshWeatherDisplay(){
 	getCurrentWeather();
 	getForecastWeather();
-	
+
 	clearInterval(weatherTimer);
 	weatherTimer = setInterval(function(){
 		getCurrentWeather();
 		getForecastWeather();
-	}, weatherRefreshRate);
+	}, (60*1000)*settings.weather.refreshRate);
 }
