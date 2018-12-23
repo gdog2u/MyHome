@@ -1,8 +1,8 @@
 var round = Math.round;
 var minute = 60*1000;
 var settings = {};
-var weatherTimer = null;
-var stockTimer = null;
+var weatherTimer;
+var stockTimer;
 
 $(document).ready(function(){
 	$.ajax({
@@ -21,14 +21,36 @@ function main(){
 	getForecastWeather();
 	getStockData();
 
-	weatherTimer = setInterval(function(){
-		getCurrentWeather();
-		getForecastWeather();
-	}, minute*settings.weather.refreshRate);
+	startWeatherTimer(settings.weather.refreshRate);
+	startStockTimer(settings.stocks.refreshRate);
+}
 
+function startWeatherTimer(refreshMinutes){
+	if(typeof(weatherTimer) === "undefined"){
+		weatherTimer = setInterval(function(){
+			getCurrentWeather();
+			getForecastWeather();
+		}, minute*refreshMinutes);
+	}else{
+		console.log(weatherTimer);
+	}
+}
+
+function startStockTimer(refreshMinutes){
 	stockTimer = setInterval(function(){
 		getStockData();
-	}, minute*settings.stocks.refreshRate);
+		isActiveHours();
+	}, minute*refreshMinutes);
+}
+
+function stopTimer(timer){
+	clearInterval(timer);
+	timer = undefined;
+}
+
+function stoWeatherTimer(){
+	clearInterval(weatherTimer);
+	weatherTimer = undefined;
 }
 
 function getCurrentWeather(){
@@ -174,11 +196,9 @@ function refreshWeatherDisplay(){
 	getCurrentWeather();
 	getForecastWeather();
 
-	clearInterval(weatherTimer);
-	weatherTimer = setInterval(function(){
-		getCurrentWeather();
-		getForecastWeather();
-	}, minute*settings.weather.refreshRate);
+	stopTimer(weatherTimer);
+
+	startWeatherTimer(settings.weather.refreshRate);
 }
 
 function getStockData(){
@@ -232,5 +252,23 @@ function updateStockDisplay(stockData){
 		$(stockSpan).append(changeSpan);
 
 		$('#stocks').append(stockSpan);
+	}
+}
+
+function isActiveHours(){
+	let now = new Date();
+	if(settings.active.days.includes(now.getDay())){
+		if(now.getHours() >= settings.active.hours[0] && now.getHours() < settings.active.hours[1]){
+			if(weatherTimer === null || stockTimer === null){
+				startWeatherTimer(settings.weather.refreshRate);
+				startStockTimer(settings.stocks.refreshRate);
+			}
+		}else{
+			weatherTimer = stopTimer(weatherTimer);
+			stockTimer = stopTimer(stockTimer);
+		}
+	}else{
+		weatherTimer = stopTimer(weatherTimer);
+		stockTimer = stopTimer(stockTimer);
 	}
 }
