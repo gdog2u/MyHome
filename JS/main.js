@@ -1,6 +1,6 @@
 var round = Math.round;
-var minute = 60*1000;
 var settings = {};
+var dayTimer;
 var weatherTimer;
 var stockTimer;
 
@@ -21,36 +21,12 @@ function main(){
 	getForecastWeather();
 	getStockData();
 
-	startWeatherTimer(settings.weather.refreshRate);
-	startStockTimer(settings.stocks.refreshRate);
-}
+	weatherTimer = new Timer([getCurrentWeather, getForecastWeather], settings.weather.refreshRate);
+		weatherTimer.start();
+	stockTimer = new Timer([getStockData], settings.stocks.refreshRate);
+		stockTimer.start();
 
-function startWeatherTimer(refreshMinutes){
-	if(typeof(weatherTimer) === "undefined"){
-		weatherTimer = setInterval(function(){
-			getCurrentWeather();
-			getForecastWeather();
-		}, minute*refreshMinutes);
-	}else{
-		console.log(weatherTimer);
-	}
-}
-
-function startStockTimer(refreshMinutes){
-	stockTimer = setInterval(function(){
-		getStockData();
-		isActiveHours();
-	}, minute*refreshMinutes);
-}
-
-function stopTimer(timer){
-	clearInterval(timer);
-	timer = undefined;
-}
-
-function stoWeatherTimer(){
-	clearInterval(weatherTimer);
-	weatherTimer = undefined;
+	dayTimer = new Timer([StartEndDay], 5);
 }
 
 function getCurrentWeather(){
@@ -196,9 +172,7 @@ function refreshWeatherDisplay(){
 	getCurrentWeather();
 	getForecastWeather();
 
-	stopTimer(weatherTimer);
-
-	startWeatherTimer(settings.weather.refreshRate);
+	weatherTimer.restart();
 }
 
 function getStockData(){
@@ -259,16 +233,25 @@ function isActiveHours(){
 	let now = new Date();
 	if(settings.active.days.includes(now.getDay())){
 		if(now.getHours() >= settings.active.hours[0] && now.getHours() < settings.active.hours[1]){
-			if(weatherTimer === null || stockTimer === null){
-				startWeatherTimer(settings.weather.refreshRate);
-				startStockTimer(settings.stocks.refreshRate);
-			}
+			return true;
 		}else{
-			weatherTimer = stopTimer(weatherTimer);
-			stockTimer = stopTimer(stockTimer);
+			return false;
 		}
 	}else{
-		weatherTimer = stopTimer(weatherTimer);
-		stockTimer = stopTimer(stockTimer);
+		return false;
+	}
+}
+
+function StartEndDay(){
+	if(isActiveHours()){
+		if(!weatherTimer.isRunning()){
+			weatherTimer.start();
+		}
+		if(!stockTimer.isRunning()){
+			stockTimer.start();
+		}
+	}else{
+		weatherTimer.stop();
+		stockTimer.stop();
 	}
 }
