@@ -1,8 +1,9 @@
 class Timer{
-    /** constructor
-     * Parameters:
-     *      functions: an array containing function references
-     *      minutes: (optional) the number of minutes between intervals
+    /**
+     * Constructor for the Timer class
+     * @constructor
+     * @param {Function[]} functions - An array containing function references
+     * @param {number} [minutes] - The number of minutes between intervals
      */
     constructor(functions, minutes = 1){
         this.functions = functions;
@@ -20,7 +21,7 @@ class Timer{
         this.interval = undefined;
     }
 
-    /** start
+    /**
      *  Start the timer.
      */
     start(){
@@ -32,7 +33,7 @@ class Timer{
         }, this.MINUTE * this.minutes, this.functions);
     }
 
-    /** stop
+    /**
      * Stop the timer.
      */
     stop(){
@@ -40,7 +41,7 @@ class Timer{
         clearInterval(this.interval);
     }
 
-    /** restart
+    /**
      *  Restart the timer.
      */
     restart(){
@@ -48,10 +49,9 @@ class Timer{
         this.start();
     }
 
-    /** addFunction
+    /**
      * Add a function refernce to the list of functions to be run. Restarts the timer.
-     * Parameters:
-     *      functionName: refernce to a defined function
+     * @param {Function} functionName - refernce to a defined function
      */
     addFunction(functionName){
         if(typeof(functionName) !== "function"){
@@ -67,10 +67,9 @@ class Timer{
         this.restart();
     }
 
-    /** removeFunction
+    /**
      *  Removes a given function reference from the list of functions to be run. Restarts the timer.
-     * Parameters:
-     *      functionName: refernce to a defined function
+     * @param {Function} functionName - refernece to a defined function
      */
     removeFunction(functionName){
         if(typeof(functionName) !== "function"){
@@ -87,8 +86,9 @@ class Timer{
         this.restart();
     }
 
-    /** isRunning
-     * Returns boolean dependant on whether or not the tiemr is running.
+    /**
+     * Returns boolean dependant on whether or not the timer is running.
+     * @return {boolean}
      */
     isRunning(){
         return this.running;
