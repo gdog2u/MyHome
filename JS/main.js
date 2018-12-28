@@ -1,6 +1,8 @@
 var round = Math.round;
 var settings = {};
 var dayTimer;
+var taskTimer;
+var lastTaskHash;
 var weatherTimer;
 var stockTimer;
 
@@ -17,18 +19,116 @@ $(document).ready(function(){
 });
 
 function main(){
+	getTaskData()
 	getCurrentWeather();
 	getForecastWeather();
 	getStockData();
 
+	taskTimer = new Timer([getTaskData], settings.tasks.refreshRate);
+		taskTimer.start();
 	weatherTimer = new Timer([getCurrentWeather, getForecastWeather], settings.weather.refreshRate);
-		weatherTimer.start();
+		// weatherTimer.start();
 	stockTimer = new Timer([getStockData], settings.stocks.refreshRate);
-		stockTimer.start();
+		// stockTimer.start();
 
-	dayTimer = new Timer([StartEndDay], 5);
+	// dayTimer = new Timer([StartEndDay], 5);
 }
 
+/** Task Functions*/
+function getTaskData(){
+	$.ajax({
+		url: "ajax.php",
+		method: "post",
+		data: {
+			func: "getTasks"
+		},
+		success: function(data){
+			if(data.responseCode == 200 && data.responseData.hash != lastTaskHash){
+				lastTaskHash = data.responseData.hash;
+				updateTaskDisplay(data.responseData.tasks);
+			}else if(data.responseCode != 200){
+				console.log(data.responseCode);
+				console.log(data.responseData);
+			}
+		},
+		error: function(xhrStatus){
+			console.log(xhrStatus);
+		}
+	});
+}
+
+function updateTaskDisplay(taskData){
+	$('#list').empty();
+	for(let i = 0; i < taskData.length; i++){
+		// task holder
+		let task = $("<div></div>");
+			$(task).attr({
+				id: "task_"+taskData[i].id
+			});
+			$(task).addClass("task");
+
+		// completed checkbox
+		let checkbox = $('<input />');
+			$(checkbox).attr({
+				type: "checkbox",
+				id: "task_"+taskData[i].id+"_check"
+			});
+			$(checkbox).on("change", {id: taskData[i].id}, completeTask);
+			if(taskData[i].parent > 0){
+				$(checkbox).attr("data-parent", taskData[i].parent);
+			}
+			$(checkbox).addClass("check");
+
+		// checkbox label
+		let label = $("<label></label>");
+			$(label).attr({
+				for: "task_"+taskData[i].id+"_check"
+			});
+
+		let text = $("<span></span>");
+			$(text).text(taskData[i].task);
+
+		// delete task button
+		let remove = $('<span></span>');
+			$(remove).on("click", {id: taskData[i].id}, deleteTask);
+			$(remove).html("&times;");
+
+		// build the task div
+		$(task).append(checkbox, label, text, remove);
+
+		// add the task to the list or to its parent
+		if(taskData[i].parent > 0){
+			$('#task_'+taskData[i].parent).removeClass('task');
+			$('#task_'+taskData[i].parent).addClass('task-parent');
+			$('#task_'+taskData[i].parent).append(task);
+		}else{
+			$('#list').append(task);
+		}
+	}
+}
+
+function completeTask(task){
+	/*
+	TODO: ajax call
+	*/
+	$('#task_'+task.data.id).find('[data-parent="'+task.data.id+'"]').prop("checked", true);
+	setTimeout(deleteTask, 1000, task.data.id);
+}
+
+function deleteTask(task){
+	if(typeof(task) !== "number"){
+		task = task.data.id;
+	}
+	/*
+	TODO: ajax call
+	*/
+	$('#task_'+task).addClass("deleted");
+	setTimeout(function(taskID){
+		$('#task_'+taskID).remove();
+	}, 1000, task);
+}
+
+/** Weather Functions*/
 function getCurrentWeather(){
     $.ajax({
         url: "https://api.openweathermap.org/data/2.5/weather",
@@ -175,6 +275,7 @@ function refreshWeatherDisplay(){
 	weatherTimer.restart();
 }
 
+/** Stock functions */
 function getStockData(){
 	$('#stocks').empty();
 	for(let i = 0; i < 4; i++){

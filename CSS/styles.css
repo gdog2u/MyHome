@@ -47,6 +47,58 @@ a{
 	height: 90%;
 	flex: 1 1 66%;
 }
+#zone1 #tasks{
+	width: 100%;
+	height: 100%;
+	padding: 1em;
+	font-family: sans-serif;
+	box-sizing: border-box;
+}
+#tasks #list{
+	height: 375px;
+	padding-left: 1.5em;
+	background-color: #ffffff33;
+	border-radius: 10px;
+}
+#list .task-parent,
+#list .task{
+	display: block;
+	padding: 0.33em 0;
+	opacity: 1.0;
+	font-size: 2rem;
+	transition: opacity 1s linear;
+}
+#list .task-parent .task{
+	font-size: 1.5rem;
+	padding-left: 1.33em;
+}
+#list .task-parent.deleted,
+#list .task.deleted{
+	opacity: 0.0;
+}
+.check{
+	display: none;
+}
+.check + label{
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border-radius: 5px;
+	background-color: #fff;
+	color: #000;
+	text-align: center;
+	line-height: 20px;
+}
+.check:not(:checked) + label::before{
+	content: "\00A0";
+	font-size: 18px;
+}
+
+.check:checked + label::before{
+	content: "\2713";
+	font-size: 18px;
+}
+
 /* Zone 2 - Weather */
 #wrapper #zone2{
 	height: 90%;
@@ -58,15 +110,6 @@ a{
 	width: 90%;
 	margin: 1em auto;
 	font-family: sans-serif;
-}
-#weather .large-text{
-	font-size: 2.25rem;
-}
-#weather .med-text{
-	font-size: 1.5rem;
-}
-#weather .small-text{
-	font-size: 1.25rem;
 }
 #weather .weather-icon{
 	display: block;
@@ -138,6 +181,13 @@ a{
 	}
 }
 
+.float-left{
+	float: left;
+}
+.float-right{
+	float: right;
+}
+
 .text-left{
 	text-align: left;
 }
@@ -152,4 +202,13 @@ a{
 }
 .text-underline{
 	text-decoration: underline;
+}
+.text-large{
+	font-size: 2.25rem;
+}
+.text-med{
+	font-size: 1.5rem;
+}
+.text-small{
+	font-size: 1.25rem;
 }

@@ -10,7 +10,32 @@
 	</head>
 	<body>
 		<div id="wrapper" class="clearfix">
-			<div id="zone1">a
+			<div id="zone1">
+				<div id="tasks">
+					<span class="text-large" style="display: block;">Tasks</span>
+					<div id="list">
+						<!-- <div class="task" id="task_1">
+							<input type="checkbox" class="check" id="task_1_check" onchange="completeTask(1)"><label for="task_1_check"></label>
+							Buy Mushrooms <span onclick="deleteTask(1)">&times;</span>
+						</div>
+						<div class="task" id="task_2">
+							<input type="checkbox" class="check" id="task_2_check"><label for="task_2_check"></label>
+							Give David his gift <span onclick="deleteTask(2)">&times;</span>
+						</div>
+						<div class="task-parent" id="task_3">
+							<input type="checkbox" class="check" id="task_3_check"><label for="task_3_check"></label>
+							2019 IT Tasks <span onclick="deleteTask(3)">&times;</span>
+							<div class="task" id="task_4">
+								<input type="checkbox" class="check" id="task_4_check" data-parent="3"><label for="task_4_check"></label>
+								Ask about Better Health club <span onclick="deleteTask(4)">&times;</span>
+							</div>
+							<div class="task" id="task_5">
+								<input type="checkbox" class="check" id="task_5_check" data-parent="3"><label for="task_5_check"></label>
+								Ask about associate tests <span onclick="deleteTask(5)">&times;</span>
+							</div>
+						</div> -->
+					</div>
+				</div>
 			</div>
 			<div id="zone2">
 				<div id="weather" class="text-center">
@@ -18,43 +43,43 @@
 						<span class="text-tiny" id="updatedWhen">Updated: __:__ pm</span>
 						<a class="text-tiny" href="Javascript: refreshWeatherDisplay()">&#8635;</a>
 					</p>
-					<div class="large-text">
+					<div class="text-large">
 						<span id="weatherCity">____________</span>
 					</div>
 					<img src="images/clear-day.png" id="currentIcon" class="weather-icon" />
-					<div class="large-text">
+					<div class="text-large">
 						Current Temp: <span id="currentTemp" class="temp-display">__</span>
 					</div>
-					<div class="med-text">
+					<div class="text-med">
 						Low/High: <span id="currentLow" class="temp-display">__</span> / <span id="currentHigh" class="temp-display">__</span>
 					</div>
 					<div id="forecastContainer">
 						<div id="forecast1" class="forecast-box">
-							<div class="med-text">
+							<div class="text-med">
 								<span class="forecast-date">__/__</span>
 							</div>
 							<img src="images/clear-day.png" class="forecast-icon weather-icon">
-							<div class="small-text">
+							<div class="text-small">
 								Low/High<br />
 								<span class="forecast-low temp-display">__</span> / <span class="forecast-high temp-display">__</span>
 							</div>
 						</div>
 						<div id="forecast2" class="forecast-box">
-							<div class="med-text">
+							<div class="text-med">
 								<span class="forecast-date">__/__</span>
 							</div>
 							<img src="images/clear-day.png" class="forecast-icon weather-icon">
-							<div class="small-text">
+							<div class="text-small">
 								Low/High<br />
 								<span class="forecast-low temp-display">__</span> / <span class="forecast-high temp-display">__</span>
 							</div>
 						</div>
 						<div id="forecast3" class="forecast-box">
-							<div class="med-text">
+							<div class="text-med">
 								<span class="forecast-date">__/__</span>
 							</div>
 							<img src="images/clear-day.png" class="forecast-icon weather-icon" />
-							<div class="small-text">
+							<div class="text-small">
 								Low/High<br />
 								<span class="forecast-low temp-display">__</span> / <span class="forecast-high temp-display">__</span>
 							</div>
