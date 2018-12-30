@@ -8,7 +8,7 @@ var stockTimer;
 
 $(document).ready(function(){
 	$.ajax({
-		url: "js/settings.json",
+		url: "JS/settings.json",
 		method: "get",
 		contentType: "application/json",
 		success: function(data){
