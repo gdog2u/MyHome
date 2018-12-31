@@ -63,7 +63,7 @@ function updateTaskDisplay(taskData){
 		// task holder
 		let task = $("<div></div>");
 			$(task).attr({
-				id: "task_"+taskData[i].id
+				id: "task_"+taskData[i].TaskID
 			});
 			$(task).addClass("task");
 
@@ -71,36 +71,36 @@ function updateTaskDisplay(taskData){
 		let checkbox = $('<input />');
 			$(checkbox).attr({
 				type: "checkbox",
-				id: "task_"+taskData[i].id+"_check"
+				id: "task_"+taskData[i].TaskID+"_check"
 			});
-			$(checkbox).on("change", {id: taskData[i].id}, completeTask);
-			if(taskData[i].parent > 0){
-				$(checkbox).attr("data-parent", taskData[i].parent);
+			$(checkbox).on("change", {id: taskData[i].TaskID}, completeTask);
+			if(taskData[i].ParentID > 0){
+				$(checkbox).attr("data-parent", taskData[i].ParentID);
 			}
 			$(checkbox).addClass("check");
 
 		// checkbox label
 		let label = $("<label></label>");
 			$(label).attr({
-				for: "task_"+taskData[i].id+"_check"
+				for: "task_"+taskData[i].TaskID+"_check"
 			});
 
 		let text = $("<span></span>");
-			$(text).text(taskData[i].task);
+			$(text).text(taskData[i].Task);
 
 		// delete task button
 		let remove = $('<span></span>');
-			$(remove).on("click", {id: taskData[i].id}, deleteTask);
+			$(remove).on("click", {id: taskData[i].TaskID}, deleteTask);
 			$(remove).html("&times;");
 
 		// build the task div
 		$(task).append(checkbox, label, text, remove);
 
 		// add the task to the list or to its parent
-		if(taskData[i].parent > 0){
-			$('#task_'+taskData[i].parent).removeClass('task');
-			$('#task_'+taskData[i].parent).addClass('task-parent');
-			$('#task_'+taskData[i].parent).append(task);
+		if(taskData[i].ParentID > 0){
+			$('#task_'+taskData[i].ParentID).removeClass('task');
+			$('#task_'+taskData[i].ParentID).addClass('task-parent');
+			$('#task_'+taskData[i].ParentID).append(task);
 		}else{
 			$('#list').append(task);
 		}
