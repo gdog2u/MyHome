@@ -27,11 +27,11 @@ function main(){
 	taskTimer = new Timer([getTaskData], settings.tasks.refreshRate);
 		taskTimer.start();
 	weatherTimer = new Timer([getCurrentWeather, getForecastWeather], settings.weather.refreshRate);
-		// weatherTimer.start();
+		weatherTimer.start();
 	stockTimer = new Timer([getStockData], settings.stocks.refreshRate);
-		// stockTimer.start();
+		stockTimer.start();
 
-	// dayTimer = new Timer([StartEndDay], 5);
+	dayTimer = new Timer([StartEndDay], 5);
 }
 
 /** Task Functions*/
@@ -59,6 +59,17 @@ function getTaskData(){
 
 function updateTaskDisplay(taskData){
 	$('#list').empty();
+
+	if(taskData.length == 0){
+		let task = $('<div></div>');
+			$(task).addClass('task');
+		let text = $('<span></span>');
+			$(text).text("There are currently no tasks.");
+
+		$(task).append(text);
+		$('#list').append(task);
+	}
+
 	for(let i = 0; i < taskData.length; i++){
 		// task holder
 		let task = $("<div></div>");
@@ -108,24 +119,62 @@ function updateTaskDisplay(taskData){
 }
 
 function completeTask(task){
-	/*
-	TODO: ajax call
-	*/
-	$('#task_'+task.data.id).find('[data-parent="'+task.data.id+'"]').prop("checked", true);
-	setTimeout(deleteTask, 1000, task.data.id);
+	if(typeof(task) !== "number"){
+		task = task.data.id;
+	}
+
+	$.ajax({
+		url: "/ajax.php",
+		method: "post",
+		data: {
+			func: "completeTask",
+			taskID: task
+		},
+		success: function(data){
+			if(data.responseCode == 200){
+				$('#task_'+task).addClass("deleted");
+				$('#task_'+task).find('[data-parent="'+task+'"]').prop("checked", true);
+				setTimeout(function(){
+					refreshTaskDisplay();
+				}, 1000);
+			}else{
+				console.log(data.responseCode);
+				console.log(data.responseData);
+			}
+		}
+	});
 }
 
 function deleteTask(task){
 	if(typeof(task) !== "number"){
 		task = task.data.id;
 	}
-	/*
-	TODO: ajax call
-	*/
-	$('#task_'+task).addClass("deleted");
-	setTimeout(function(taskID){
-		$('#task_'+taskID).remove();
-	}, 1000, task);
+
+	$.ajax({
+		url: "/ajax.php",
+		method: "post",
+		data: {
+			func: "deleteTask",
+			taskID: task
+		},
+		success: function(data){
+			if(data.responseCode == 200){
+				$('#task_'+task).addClass("deleted");
+				setTimeout(function(){
+					refreshTaskDisplay();
+				}, 1000);
+			}else{
+				console.log(data.responseCode);
+				console.log(data.responseData);
+			}
+		}
+	});
+}
+
+function refreshTaskDisplay(){
+	getTaskData();
+
+	taskTimer.restart();
 }
 
 /** Weather Functions*/
