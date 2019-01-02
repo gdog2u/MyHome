@@ -19,6 +19,7 @@ $(document).ready(function(){
 });
 
 function main(){
+	setCSS(settings.general.css);
 	getTaskData()
 	getCurrentWeather();
 	getForecastWeather();
@@ -27,11 +28,11 @@ function main(){
 	taskTimer = new Timer([getTaskData], settings.tasks.refreshRate);
 		taskTimer.start();
 	weatherTimer = new Timer([getCurrentWeather, getForecastWeather], settings.weather.refreshRate);
-		weatherTimer.start();
+		// weatherTimer.start();
 	stockTimer = new Timer([getStockData], settings.stocks.refreshRate);
-		stockTimer.start();
+		// stockTimer.start();
 
-	dayTimer = new Timer([StartEndDay], 5);
+	// dayTimer = new Timer([StartEndDay], 5);
 }
 
 /** Task Functions*/
@@ -379,10 +380,18 @@ function updateStockDisplay(stockData){
 	}
 }
 
+function setCSS(settings){
+	$('#wrapper').css({
+		"background": settings.background,
+		"background-size": "contain",
+		"color": settings.color
+	});
+}
+
 function isActiveHours(){
 	let now = new Date();
-	if(settings.active.days.includes(now.getDay())){
-		if(now.getHours() >= settings.active.hours[0] && now.getHours() < settings.active.hours[1]){
+	if(settings.general.active.days.includes(now.getDay())){
+		if(now.getHours() >= settings.general.active.hours[0] && now.getHours() < settings.general.active.hours[1]){
 			return true;
 		}else{
 			return false;
