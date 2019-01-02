@@ -72,7 +72,7 @@
                     LEFT JOIN Tasks AS Parent ON Parent.TaskID = Task.ParentID
                 WHERE Task.Deleted = 0 AND (Task.Completed=0 AND IFNULL(Parent.Completed, 0) = 0)
                 ORDER BY IFNULL(Task.DueDate, '2099-01-01 00:00:00') ASC
-                LIMIT 8;
+                LIMIT 12;
             ");
 
             while($task = $result->fetch(PDO::FETCH_ASSOC)){
