@@ -28,11 +28,11 @@ function main(){
 	taskTimer = new Timer([getTaskData], settings.tasks.refreshRate);
 		taskTimer.start();
 	weatherTimer = new Timer([getCurrentWeather, getForecastWeather], settings.weather.refreshRate);
-		// weatherTimer.start();
+		weatherTimer.start();
 	stockTimer = new Timer([getStockData], settings.stocks.refreshRate);
-		// stockTimer.start();
+		stockTimer.start();
 
-	// dayTimer = new Timer([StartEndDay], 5);
+	dayTimer = new Timer([StartEndDay], 5);
 }
 
 /** Task Functions*/
