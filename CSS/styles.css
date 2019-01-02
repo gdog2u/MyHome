@@ -5,8 +5,8 @@
 
 html,
 body{
-	width: 800px;
-	height: 480px;
+	width: 1024px;
+	height: 600px;
 	overflow: hidden;
 	font-size: 12px;
 }
@@ -44,7 +44,7 @@ a{
 }
 /* Zone 1 - Tasks */
 #wrapper #zone1{
-	height: 90%;
+	height: 92%;
 	flex: 1 1 66%;
 }
 #zone1 #tasks{
@@ -55,7 +55,7 @@ a{
 	box-sizing: border-box;
 }
 #tasks #list{
-	height: 375px;
+	height: calc(100% - 2.5rem);
 	padding-left: 1.5em;
 	background-color: #ffffff33;
 	border-radius: 10px;
@@ -101,15 +101,23 @@ a{
 
 /* Zone 2 - Weather */
 #wrapper #zone2{
-	height: 90%;
+	height: 92%;
 	flex: 1 1 34%;
 	border-left: 2px solid #fff;
 	box-sizing: border-box;
+	position: relative;
 }
+#wrapper #zone2 #update,
 #wrapper #zone2 #weather{
 	width: 90%;
 	margin: 1em auto;
 	font-family: sans-serif;
+}
+#wrapper #zone2 #weather{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 #weather .weather-icon{
 	display: block;
@@ -146,7 +154,7 @@ a{
 /* Zone 3 - Stocks */
 #wrapper #zone3{
 	flex: 1 1 100%;
-	height: 10%;
+	height: 8%;
 	overflow: hidden;
 	background-color: #000;
 }
