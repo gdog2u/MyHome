@@ -1,0 +1,34 @@
+{
+    "general": {
+        "css": {
+            "background": "#465d42",
+            "color": "#fff"
+        },
+        "active": {
+            "days": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "hours": [
+                9,
+                17
+            ]
+        }
+    },
+    "tasks": {
+        "refreshRate": 5
+    },
+    "weather": {
+        "refreshRate": 15,
+        "city": -1,
+        "api": ""
+    },
+    "stocks": {
+        "watching": [],
+        "refreshRate": 10,
+        "api": ""
+    }
+}
