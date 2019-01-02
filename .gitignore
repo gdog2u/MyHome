@@ -11,3 +11,5 @@ Thumbs.db
 
 # Original #
 JS/settings.json
+IMAGES/Backgrounds/*
+!IMAGES/Backgrounds/.gitkeep
