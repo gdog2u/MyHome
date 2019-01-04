@@ -1,5 +1,6 @@
 <?php
-    // ini_set()
+    $settings = json_decode(file_get_contents("JS/settings.json"), true);
+
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         header('Content-Type: application/json');
         /*
@@ -62,7 +63,7 @@
 
     function getDBTasks(){
         $return = array();
-        $conn = new PDO("mysql:host=localhost;dbname=MyHome", "root", "Henri2u2");
+        $conn = new PDO("mysql:host=localhost;dbname=".$GLOBALS["settings"]["general"]["database"]["name"], $GLOBALS["settings"]["general"]["database"]["user"], $GLOBALS["settings"]["general"]["database"]["password"]);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         try{
@@ -99,7 +100,7 @@
         }
 
         // DB Connection
-        $conn = new PDO("mysql:host=localhost;dbname=MyHome", "root", "Henri2u2");
+        $conn = new PDO("mysql:host=localhost;dbname=".$GLOBALS["settings"]["general"]["database"]["name"], $GLOBALS["settings"]["general"]["database"]["user"], $GLOBALS["settings"]["general"]["database"]["password"]);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Set the string for which field we're changing
