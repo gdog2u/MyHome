@@ -188,7 +188,7 @@ a{
 /*Animation stylings*/
 @keyframes stockslide{
 	0% {
-		transform: translateX(810px);
+		transform: translateX(1034px);
 	}
 	100% {
 		transform: translateX(-100%);
