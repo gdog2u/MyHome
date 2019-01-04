@@ -32,7 +32,7 @@
         "api": ""
     },
     "stocks": {
-        "watching": [],
+        "watching": ["AAPL", "FB", "VTI", "GDX"],
         "refreshRate": 10,
         "api": ""
     }
