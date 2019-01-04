@@ -6,8 +6,15 @@
         }
 
         $settings = file_get_contents($file);
+        $settingsJSON = json_decode($settings, true);
 
-        return json_decode($settings, true);
+        if($settingsJSON == false){
+            trigger_error("Could not convert \$settings to JSON");
+            trigger_error(print_r($settingsJSON, true));
+            return false;
+        }
+
+        return $settingsJSON;
     }
 
     function writeSettings($settings){
