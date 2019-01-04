@@ -5,7 +5,7 @@
             "color": "#fff"
         },
         "database": {
-            "name": "",
+            "name": "MyHome",
             "user": "root",
             "password": ""
         }
