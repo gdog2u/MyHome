@@ -4,6 +4,11 @@
             "background": "#465d42",
             "color": "#fff"
         },
+        "database": {
+            "name": "",
+            "user": "root",
+            "password": ""
+        }
         "active": {
             "days": [
                 1,
