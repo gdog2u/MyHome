@@ -6,6 +6,7 @@ var lastTaskHash;
 var weatherTimer;
 var stockTimer;
 
+/** General Use Functions */
 $(document).ready(function(){
 	$.ajax({
 		url: "JS/settings.json",
@@ -20,7 +21,7 @@ $(document).ready(function(){
 
 function main(){
 	setCSS(settings.general.css);
-	getTaskData()
+	getTaskData();
 	getCurrentWeather();
 	getForecastWeather();
 	getStockData();
@@ -35,6 +36,40 @@ function main(){
 	dayTimer = new Timer([StartEndDay], 5);
 }
 
+function setCSS(settings){
+	$('#wrapper').css({
+		"background": settings.background,
+		"background-size": "contain",
+		"color": settings.color
+	});
+}
+
+function isActiveHours(){
+	let now = new Date();
+	if(settings.general.active.days.includes(now.getDay())){
+		if(now.getHours() >= settings.general.active.hours[0] && now.getHours() < settings.general.active.hours[1]){
+			return true;
+		}else{
+			return false;
+		}
+	}else{
+		return false;
+	}
+}
+
+function StartEndDay(){
+	if(isActiveHours()){
+		if(!weatherTimer.isRunning()){
+			weatherTimer.start();
+		}
+		if(!stockTimer.isRunning()){
+			stockTimer.start();
+		}
+	}else{
+		weatherTimer.stop();
+		stockTimer.stop();
+	}
+}
 /** Task Functions*/
 function getTaskData(){
 	$.ajax({
@@ -240,10 +275,12 @@ function updateCurrentDisplay(weatherData){
 
 function updateForecastDisplay(forecastData){
 	var desiredForecast = [forecastData.list[4], forecastData.list[12], forecastData.list[20]];
+	var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 	for(let i = 0; i < 3; i++){
 		// Update forecast date display
 		let forecastDate = new Date(desiredForecast[i].dt*1000);
+		$('#forecast'+(i+1)+' .forecast-day').text(days[forecastDate.getDay()]);
 		$('#forecast'+(i+1)+' .forecast-date').text((forecastDate.getMonth()+1)+"/"+forecastDate.getDate());
 		// Update forecast low/high
 		let forecastLowHigh = getForecastLowHigh(forecastData.list.slice(i*8, ((8*(i+1))-1)));
@@ -377,40 +414,5 @@ function updateStockDisplay(stockData){
 		$(stockSpan).append(changeSpan);
 
 		$('#stocks').append(stockSpan);
-	}
-}
-
-function setCSS(settings){
-	$('#wrapper').css({
-		"background": settings.background,
-		"background-size": "contain",
-		"color": settings.color
-	});
-}
-
-function isActiveHours(){
-	let now = new Date();
-	if(settings.general.active.days.includes(now.getDay())){
-		if(now.getHours() >= settings.general.active.hours[0] && now.getHours() < settings.general.active.hours[1]){
-			return true;
-		}else{
-			return false;
-		}
-	}else{
-		return false;
-	}
-}
-
-function StartEndDay(){
-	if(isActiveHours()){
-		if(!weatherTimer.isRunning()){
-			weatherTimer.start();
-		}
-		if(!stockTimer.isRunning()){
-			stockTimer.start();
-		}
-	}else{
-		weatherTimer.stop();
-		stockTimer.stop();
 	}
 }
