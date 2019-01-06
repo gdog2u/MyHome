@@ -9,10 +9,6 @@ body{
 	height: 600px;
 	overflow: hidden;
 }
-a{
-	color: inherit;
-	text-decoration: none;
-}
 
 .backdrop{
 	padding: 1em;
