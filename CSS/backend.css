@@ -1,0 +1,10 @@
+html,
+body{
+    font-size: 12px;
+}
+#settings{
+    font-size: 1.25rem;
+}
+div div{
+    margin-left: 1em;
+}
