@@ -1,0 +1,55 @@
+html,
+body{
+    font-size: 12px;
+}
+
+.no-margin{
+	margin: 0 !important;
+}
+.no-padding{
+	padding: 0 !important;
+}
+
+.clearfix:after {
+    display: block;
+    height: 0;
+    content: ".";
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+}
+.clearfix {
+    display: inline-block;
+}
+
+.float-left{
+	float: left;
+}
+.float-right{
+	float: right;
+}
+
+.text-left{
+	text-align: left;
+}
+.text-center{
+	text-align: center;
+}
+.text-right{
+	text-align: right;
+}
+.text-tiny{
+	font-size: 0.75 rem;
+}
+.text-underline{
+	text-decoration: underline;
+}
+.text-large{
+	font-size: 2.25rem;
+}
+.text-med{
+	font-size: 1.5rem;
+}
+.text-small{
+	font-size: 1.25rem;
+}
