@@ -1,10 +1,90 @@
-html,
 body{
-    font-size: 12px;
+    display: flex;
+    flex-flow: row nowrap;
+    font-family: sans-serif;
 }
-#settings{
+#navbar{
+    position: relative;
+    flex: 1 1 10%;
+    border-right: 1px solid white;
+    background: #465d42;
+	color: #fff;
+    font-size: 1.75rem;
+}
+#navbar ul{
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    list-style: none;
+}
+#navbar li{
+    padding: 1em 0;
+    background-color: transparent;
+    transition: background-color 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#navbar li:hover{
+    background-color: #ffffffaa;
+}
+#wrapper{
+    flex: 1 1 90%;
+    padding: 1em;
+    box-sizing: border-box;
     font-size: 1.25rem;
 }
-div div{
+
+div#settings div{
     margin-left: 1em;
+}
+.settings-table,
+.settings-table tr,
+.settings-table td{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+.settings-table{
+    min-width: 700px;
+    margin-bottom: 1rem;
+    background-color: #465d42aa;
+    color: inherit;
+}
+.settings-table .caption{
+    font-weight: bold;
+}
+.settings-table td,
+.settings-table th{
+    padding: .5rem 1rem;
+}
+.settings-table td{
+    width: 350px;
+}
+.settings-table a{
+    text-decoration: underline;
+    color: #00feff;
+}
+.settings-table .activeDoW{
+    width: 14.29%;
+    float: left;
+    text-align: center;
+}
+.settings-note{
+    font-size: .8em;
+    font-style: italic;
+}
+
+@media screen and (max-width: 1400px){
+    #navbar{
+        flex-basis: 15%;
+    }
+    #wrapper{
+        flex-basis: 85%;
+    }
+}
+@media screen and (max-width: 768px) {
+    #navbar{
+        flex-basis: 20%;
+    }
+    #wrapper{
+        flex-basis: 80%;
+    }
 }
