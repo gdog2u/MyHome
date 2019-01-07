@@ -94,19 +94,19 @@
                             <td colspan="2">MyHome uses a MySQL database to manage its task system. In order for that system to work, the following information must be correct. <span class="settings-note">These options should be during initialization.</span></td>
                         </tr>
                         <tr>
-                            <td>Database Name</td>
+                            <td><strong>Database Name</strong></td>
                             <td>
                                 <input type="text" name="db_name" value="<?=$settings["general"]["database"]["name"] ?>" />
                             </td>
                         </tr>
                         <tr>
-                            <td>Database User</td>
+                            <td><strong>Database User<strong/></td>
                             <td>
                                 <input type="text" name="db_user" value="<?=$settings["general"]["database"]["user"] ?>" />
                             </td>
                         </tr>
                         <tr>
-                            <td>Database Password</td>
+                            <td><strong>Database Password</strong></td>
                             <td>
                                 <input type="password" name="db_pass" value="<?=$settings["general"]["database"]["password"] ?>" />
                             </td>
@@ -144,7 +144,7 @@
                         </tr>
                         <tr>
                             <td>
-                                API Key<br/>
+                                <strong>API Key</strong><br/>
                                 <span class="settings-note">This must be requested from <a href="https://openweathermap.org/appid" target="_blank">OpenWeatherMap.org</a>, and can be free to obtain.</span>
                             </td>
                             <td>
@@ -153,7 +153,7 @@
                         </tr>
                         <tr>
                             <td>
-                                City ID<br/>
+                                <strong>City ID</strong><br/>
                                 <span class="settings-note">Again, must be found at <a href="https://openweathermap.org/current#cityid" target="_blank">OpenWeatherMap.org</a>. Follow the guide to find your city ID, then enter it here.</span>
                             </td>
                             <td>
@@ -161,7 +161,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Refresh Rate</td>
+                            <td><strong>Refresh Rate</strong></td>
                             <td>
                                 <input type="number" name="weather_rate" value="<?=$settings["weather"]["refreshRate"] ?>" min="1" />
                             </td>
@@ -182,7 +182,7 @@
                         </tr>
                         <tr>
                             <td>
-                                API Key<br/>
+                                <strong>API Key</strong><br/>
                                 <span class="settings-note">This must be requested from <a href="https://WorldTradingData.com/register" target="_blank">WorldTradingData.com</a>, and can be free to obtain.</span>
                             </td>
                             <td>
@@ -190,7 +190,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Refresh Rate</td>
+                            <td><strong>Refresh Rate</strong></td>
                             <td>
                                 <input type="number" name="stocks_rate" value="<?=$settings["stocks"]["refreshRate"] ?>" min="1" />
                             </td>
