@@ -4,9 +4,11 @@ body{
     font-family: sans-serif;
 }
 #navbar{
-    position: relative;
-    flex: 1 1 10%;
-    border-right: 1px solid white;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 10%;
     background: #465d42;
 	color: #fff;
     font-size: 1.75rem;
@@ -19,7 +21,7 @@ body{
     list-style: none;
 }
 #navbar li{
-    padding: 1em 0;
+    padding: 1em 0 1em 1em;
     background-color: transparent;
     transition: background-color 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -27,7 +29,8 @@ body{
     background-color: #ffffffaa;
 }
 #wrapper{
-    flex: 1 1 90%;
+    width: 80%;
+    margin: 0 auto;
     padding: 1em;
     box-sizing: border-box;
     font-size: 1.25rem;
@@ -74,17 +77,16 @@ div#settings div{
 
 @media screen and (max-width: 1400px){
     #navbar{
-        flex-basis: 15%;
+        width: 15%;
     }
     #wrapper{
-        flex-basis: 85%;
+        width: 60%;
     }
 }
 @media screen and (max-width: 768px) {
     #navbar{
-        flex-basis: 20%;
+        width: 15%;
     }
     #wrapper{
-        flex-basis: 80%;
-    }
+        width: 65%;
 }
