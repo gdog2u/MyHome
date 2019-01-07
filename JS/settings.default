@@ -2,7 +2,7 @@
     "general": {
         "css": {
             "background": "#465d42",
-            "color": "#fff"
+            "color": "#ffffff"
         },
         "database": {
             "name": "MyHome",
